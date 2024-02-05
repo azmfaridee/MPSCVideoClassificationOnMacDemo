@@ -23,11 +23,10 @@ model.eval()
 # Define route for home page
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', prediction=None)
+
 
 # Define route for dummy video classification
-
-
 @app.route('/classify_dummy', methods=['GET'])
 def classify_dummy_video():
     dummy_video_path = 'dummy_video.mp4'
@@ -51,7 +50,7 @@ def classify_dummy_video():
 
         predicted_class = torch.argmax(outputs, dim=1).item()
 
-        return f"Predicted class for dummy_video.mp4: {predicted_class}"
+        return render_template('index.html', prediction=predicted_class)
     else:
         return "Dummy video file not found."
 

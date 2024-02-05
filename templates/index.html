@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Classification</title>
     <style>
-      video {
-        max-width: 100%;
-        height: auto;
-      }
+        /* Center align the video player and button */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        video {
+            max-width: 100%;
+            height: auto;
+        }
+        form {
+            margin-top: 20px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <h1>Video Classification</h1>
     <video controls>
-      <source src="dummy_video.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
+        <source src="dummy_video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
     </video>
-    <br />
+    <br>
     <form action="/classify_dummy" method="get">
-      <input type="submit" value="Classify dummy_video.mp4" />
+        <input type="submit" value="Classify dummy_video.mp4">
     </form>
-  </body>
+    {% if prediction is not none %}
+    <p>Predicted class for dummy_video.mp4: {{ prediction }}</p>
+    {% endif %}
+</body>
 </html>
