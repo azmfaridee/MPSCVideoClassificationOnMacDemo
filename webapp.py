@@ -8,6 +8,7 @@ from flask import Flask, render_template, request
 from PIL import Image
 from torchvision.io import read_video
 from torchvision.models.video import r2plus1d_18
+import time
 
 use_mps = False
 
@@ -45,8 +46,13 @@ def classify_dummy_video():
         if use_mps:
             video_tensor = video_tensor.to('mps')
 
+        start_time = time.time()
         with torch.no_grad():
             outputs = model(video_tensor)
+        end_time = time.time()
+
+        print(
+            f"Time taken to classify the video: {end_time - start_time} seconds")
 
         predicted_class = torch.argmax(outputs, dim=1).item()
 
